@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="fav.png">
+  <title>JavaScript Form Validation</title>
+  <style>
+    body {
+      padding: 10px 50px;
+    }
+
+    .formdesign {
+      font-size: 20px;
+    }
+
+    .formdesign input {
+      width: 40%;
+      padding: 12px 20px;
+      border: 1px solid blue;
+      margin: 14px;
+      border-radius: 4px;
+      font-size: 15px;
+    }
+
+    .formerror {
+      color: red;
+    }
+
+    .button {
+      border-radius: 16px;
+      width: 100px;
+      height: 50px;
+      font-size: 25px;
+      margin: 22px 10px;
+
+    }
+
+    body {
+      color: #40514E;
+      margin: 0;
+      text-align: center;
+      font-family: 'Merriweather', serif;
+      background: #dfcaca;
+    }
+    h1 {
+      font-size: 50px;
+      margin: 50px auto 0 auto;
+      font-family: 'Sacramento', cursive;
+      color: #66BFBF;
+      line-height: 2;
+
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Welcome to the Registration Form!</h1>
+  <form class="" action="index.html" name="myForm" onsubmit="return validateForm()" method="post">
+    <!--if the return value is true then the form gets submitted,else it wont -->
+    <div class="formdesign" id="name">
+      Name: <input type="text" name="fname"><!-- <span class="formerror"><em></em></span> -->
+      <div class="formerror">
+      </div>
+    </div>
+
+    <div class="formdesign" id="email">
+      Email: <input type="email" name="femail">
+      <div class="formerror">
+      </div>
+    </div>
+    <div class="formdesign" id="phone">
+      Phone: <input type="phone" name="fphone">
+      <div class="formerror">
+      </div>
+    </div>
+    <div class="formdesign" id="pass">
+      Password: <input type="password" name="fpass">
+      <div class="formerror">
+      </div>
+    </div>
+    <div class="formdesign" id="cpass">
+      Confirm Password: <input type="password" name="fcpass">
+      <div class="formerror">
+      </div>
+    </div>
+    <input class="button" type="submit" value="submit">
+  </form>
+  <script type="text/javascript">
+    function clearErrors() {
+
+      errors = document.getElementsByClassName('formerror');
+      for (let item of errors) {
+        item.innerHTML = "";
+      }
+
+
+    }
+
+    function seterror(id, error) {
+      //sets error inside tag of id
+      element = document.getElementById(id);
+      element.getElementsByClassName('formerror')[0].innerHTML = error;
+
+    }
+
+    function validateForm() {
+      var returnval = true;
+      clearErrors();
+
+      //perform validation and if validation fails, set the value of returnval to false
+      var name = document.forms['myForm']["fname"].value;
+      if (name.length < 5) {
+        seterror("name", "*Length of name should be more than 5");
+        returnval = false;
+      }
+
+      if (name.length == 0) {
+        seterror("name", "*Length of name cannot be zero!");
+        returnval = false;
+      }
+
+      var email = document.forms['myForm']["femail"].value;
+      if (email.length > 15) {
+        seterror("email", "*Email length is greater than 15 characters.");
+        returnval = false;
+      }
+
+      var phone = document.forms['myForm']["fphone"].value;
+      if (phone.length != 10) {
+        seterror("phone", "*Phone number should be of 10 digits!");
+        returnval = false;
+      }
+
+      var password = document.forms['myForm']["fpass"].value;
+      if (password.length < 6) {
+        seterror("pass", "*Password should be atleast 6 characters long!");
+        returnval = false;
+      }
+
+      var cpassword = document.forms['myForm']["fcpass"].value;
+      if (cpassword != password) {
+        seterror("cpass", "*Password and Confirm password should match!");
+        returnval = false;
+      }
+
+      return returnval;
+    }
+  </script>
+
+
+
+
+</body>
+
+</html>
